@@ -3,3 +3,4 @@
 /* **Hint**: Using the 5 Day Weather Forecast API, you'll notice that you will need to pass in coordinates instead of just a city name. Using the OpenWeatherMap APIs, how could we retrieve geographical coordinates given a city name? 
 */
 
+// want to be able to use JS to make cities searched persist under submit button
