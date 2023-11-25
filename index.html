@@ -12,41 +12,48 @@
 </head>
 
 <body>
+
     <div class="container-fluid">
         <!-- bar across the top w/ heading -->
-        <div>
+        <div class="hero text-center">
             <h1>Weather Dashboard</h1>
         </div>
-        <!-- container for input bar to left side -->
-        <!-- when search a city, added to the list -->
-        <!-- container seems like it goes down to same spot as the other items on pg -->
-        <div>
-            <div>
-                <h2>Search for a City:</h2>
-            </div>
-            <!-- form input -->
-            <div></div>
-            <!-- space where searches will persist on the pg -->
-        </div>
 
-        <!-- container for the rectangle @ top, shows current city selected weather -->
-        <div>
-            <div>
-                <!-- current city name, dynamically updates w JS? -->
-                <h2></h2>
+        <!-- input bar to left side -->
+        <div class="row">
+            <!-- adapted code from bootstrap for form styling -->
+            <div class="col col-md-4">
+                <div class="mb-3">
+                    <h2>Search for a City:</h2>
+                    <input type="loc-input" class="form-control" placeholder="Type city name...">
+                </div>
+                <!-- form input -->
+                <div></div>
+                <!-- space where searches will persist on the pg -->
             </div>
-        </div>
 
-        <!--container for the 5 boxes to show forecasts w heading -->
-        <div>
-            <div>
-                <h3>5-Day Forecast</h3>
+            <div class="col col-md-8">
+                <!-- this area will hold card, shows current city selected weather -->
+                <div class="card">
+                    <div>
+                        <!-- current city name, dynamically updates w JS? -->
+                        <h2></h2>
+                    </div>
+                </div>
+
+                <!--container for the 5 boxes to show forecasts w heading -->
+                <div>
+                    <div>
+                        <h3>5-Day Forecast</h3>
+                    </div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
             </div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+
         </div>
     </div>
 
