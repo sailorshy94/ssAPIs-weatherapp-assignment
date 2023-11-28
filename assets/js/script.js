@@ -5,6 +5,9 @@
 
 // want to be able to use JS to make cities searched persist under submit button
 
+// use query params to make requests more specific
+    // for weather data = icon, temp, wind, humidity
+
 // appid = e3762bdf720c3dc3229b0039e02fa026
 // API Call for geocoding - allows user to type name in and get api response
 // http://api.openweathermap.org/geo/1.0/direct?q={city name}&limit={limit}&appid={API key}
@@ -17,14 +20,22 @@
 // API Call - 5 day/ 3 hr forecast data
 // api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
 
-// fetch ("")
+    // fetch - pass the url
+// fetch ("url")
+    // take response and convert to JSON
 //    .then(function(response) {
 //     return response.json();
 //    }) 
 //    .then(function(data) {
 //     console.log()
 //     console.log(data);
+     // DO SOMETHING WITH THE DATA
 //    });
+
+// Data can be passed to for loop to select certain info - use for geocoder api to select lat and long???
+// for (var i = 0; i < data.length; i++) {
+    // console.log(data[i].name);
+// }
 
 // function getGeoCoordApi() {
 //     var requestUrl = "";
