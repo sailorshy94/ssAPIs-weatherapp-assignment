@@ -37,6 +37,14 @@
     // console.log(data[i].name);
 // }
 
+// to append data to a webpage:
+// declare global variables = containers and/or button - use ids = .getElementById("elName");
+// can declare variable with url to use in function
+// set up a for loop to iterate thru data after .then functions
+// use the two .then functions first, create variables for elements to be appended (ex. "h1", "p"), use .textContent property to to set text, use data[i].dataname to select data being retrieved, and finally use .append to append elements with text to the webpage (referencing the variables created inside the function for the elements)
+// outside the function, call it with .addEventListener("click", function name)
+
+
 // function getGeoCoordApi() {
 //     var requestUrl = "";
 
