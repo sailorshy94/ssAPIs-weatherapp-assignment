@@ -14,9 +14,7 @@
 
 // global variables
 var apiKey = "dd2805d75b3cf217071362e5f5560240";
-var city = document.getElementById("city-entry").value;
-// var city = "Anchorage";
-var searchButton = document.getElementById("search-button");
+var searchButton = document.querySelector("#search-button");
 var currentWeatherCard = document.getElementById("current-weather");
 // var date = dayjs(MMMM / DD / YYYY);
 var day1 = document.getElementById("day-1");
@@ -27,6 +25,7 @@ var day5 = document.getElementById("day-5");
 
 // when user searches a city name, want this function to run to grab city lat & long and input into the functions below
 function getGeoCode() {
+    var city = document.getElementById("city-entry").value;
     // created a url variable that concatenates query parameter to request city input and parameter for specific api key 
     var geoCodeUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=" + apiKey;
     // need to specify city/country for multiple with same name?
@@ -47,9 +46,7 @@ function getGeoCode() {
         });
 };
 
-var cityGeoCode = getGeoCode();
-// event listener does not seem to be working properly right now, when webpage loads - runs w/o being called....
-searchButton.addEventListener("click", console.log("wow"));
+searchButton.addEventListener("click", getGeoCode);
 
 // API Call - Current Weather Data
 // https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
