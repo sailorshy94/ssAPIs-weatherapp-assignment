@@ -31,6 +31,11 @@
 
 // setup below!!!
 
+// global variables
+var searchButton = document.getElementById("search-btn");
+var currentWeatherEl = document.getElementById("current-weather");
+
+
 // API Call for geocoding - allows user to type name in and get api response
 // http://api.openweathermap.org/geo/1.0/direct?q={city name}&limit={limit}&appid={API key}
 // limit = 1

@@ -31,7 +31,7 @@
                             name="city-entry">
                         <!-- btn block = block lvl btns that span full width of parent el -->
                         <!-- TODO: fix button sizing, not spanning length of parent container -->
-                        <button type="button" class="btn btn-primary btn-block">Search</button>
+                        <button type="button" id="search-btn" class="btn btn-primary btn-block">Search</button>
                     </form>
                 </div>
                 <!-- need a line and then space where searches will persist on the pg -->
@@ -42,7 +42,7 @@
                 <!-- this area will hold card, shows current city selected weather -->
                 <!-- TODO: use JS to append this to webpg -->
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body" id="current-weather">
                         <h5 class="card-title">(MM/DD/YYYY)</h5>
                         <p class="card-text">icon</p>
                         <p class="card-text">Temp:</p>
@@ -60,7 +60,7 @@
                     <!-- TODO: use JS to append these to webpg -->
                     <div class="row">
                         <div class="col">
-                            <div class="card">
+                            <div class="card" id="day-1">
                                 <div class="card-body">
                                     <h5 class="card-title">(MM/DD/YYYY)</h5>
                                     <p class="card-text">icon</p>
@@ -72,7 +72,7 @@
                         </div>
 
                         <div class="col">
-                            <div class="card">
+                            <div class="card" id="day-2">
                                 <div class="card-body">
                                     <h5 class="card-title">(MM/DD/YYYY)</h5>
                                     <p class="card-text">icon</p>
@@ -84,7 +84,7 @@
                         </div>
 
                         <div class="col">
-                            <div class="card">
+                            <div class="card" id="day-3">
                                 <div class="card-body">
                                     <h5 class="card-title">(MM/DD/YYYY)</h5>
                                     <p class="card-text">icon</p>
@@ -95,7 +95,7 @@
                             </div>
                         </div>
                         <div class="col">
-                            <div class="card">
+                            <div class="card"  id="day-4">
                                 <div class="card-body">
                                     <h5 class="card-title">(MM/DD/YYYY)</h5>
                                     <p class="card-text">icon</p>
@@ -107,7 +107,7 @@
                         </div>
 
                         <div class="col">
-                            <div class="card">
+                            <div class="card" id="day-5">
                                 <div class="card-body">
                                     <h5 class="card-title">(MM/DD/YYYY)</h5>
                                     <p class="card-text">icon</p>
