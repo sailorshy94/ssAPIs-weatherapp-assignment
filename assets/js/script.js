@@ -49,22 +49,24 @@ var day5 = document.getElementById("day-5");
 
 // when user searches a city name, want this function to run to grab city lat & long and input into the functions below
 // function getGeoCode() {
-    // created a url variable that concatenates query parameter to request city input and parameter for specific api key 
-    var geoCodeUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=" + apiKey;
-    // need to specify city/country for multiple with same name?
-   fetch(geoCodeUrl)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            console.log(data);
-        })
-    // iterate through returned data and grab: latitude and longitude 
-    // for (var i = 0; i < data.length; i++) {
-    //     console.log(data[i].name);
-    //     var latitude = ;
-    //     var longitude = ;
-    // }
+// created a url variable that concatenates query parameter to request city input and parameter for specific api key 
+var geoCodeUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=" + apiKey;
+// need to specify city/country for multiple with same name?
+fetch(geoCodeUrl)
+    .then(function (response) {
+        return response.json();
+    })
+    .then(function (data) {
+        console.log(data);
+        // iterate through returned data and grab data: latitude and longitude 
+        for (var i = 0; i < data.length; i++) {
+            console.log(data[i].local_names.en);
+            var latitude = data[i].lat;
+            console.log(latitude);
+            var longitude = data[i].lon;
+            console.log(longitude);
+        }
+    });
 
 // }
 
