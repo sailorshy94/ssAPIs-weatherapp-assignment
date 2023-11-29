@@ -2,23 +2,6 @@
 // populate data = make a container, populate the container w/ selected data!
 // want to be able to use JS to make cities searched persist under submit button
 
-// fetch - pass the url
-// fetch ("url")
-// take response and convert to JSON
-//    .then(function(response) {
-//     return response.json();
-//    }) 
-//    .then(function(data) {
-//     console.log()
-//     console.log(data);
-// DO SOMETHING WITH THE DATA
-//    });
-
-// Data can be passed to for loop to select certain info - use for geocoder api to select lat and long???
-// for (var i = 0; i < data.length; i++) {
-// console.log(data[i].name);
-// }
-
 // to append data to a webpage:
 // declare global variables = containers and/or button - use ids = .getElementById("elName");
 // can declare variable with url to use in function
@@ -31,9 +14,9 @@
 
 // global variables
 var apiKey = "dd2805d75b3cf217071362e5f5560240";
-// var city = document.getElementById("city-entry").value;
-var city = "Anchorage";
-var searchButton = document.getElementById("search-btn");
+var city = document.getElementById("city-entry").value;
+// var city = "Anchorage";
+var searchButton = document.getElementById("search-button");
 var currentWeatherCard = document.getElementById("current-weather");
 // var date = dayjs(MMMM / DD / YYYY);
 var day1 = document.getElementById("day-1");
@@ -42,34 +25,31 @@ var day3 = document.getElementById("day-3");
 var day4 = document.getElementById("day-4");
 var day5 = document.getElementById("day-5");
 
-
-// searchButton.addEventListener("click", cityGeoCode);
-
-// var cityGeoCode = getGeoCode();
-
 // when user searches a city name, want this function to run to grab city lat & long and input into the functions below
-// function getGeoCode() {
-// created a url variable that concatenates query parameter to request city input and parameter for specific api key 
-var geoCodeUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=" + apiKey;
-// need to specify city/country for multiple with same name?
-fetch(geoCodeUrl)
-    .then(function (response) {
-        return response.json();
-    })
-    .then(function (data) {
-        console.log(data);
-        // iterate through returned data and grab data: latitude and longitude 
-        for (var i = 0; i < data.length; i++) {
-            console.log(data[i].local_names.en);
-            var latitude = data[i].lat;
-            console.log(latitude);
-            var longitude = data[i].lon;
-            console.log(longitude);
-        }
-    });
+function getGeoCode() {
+    // created a url variable that concatenates query parameter to request city input and parameter for specific api key 
+    var geoCodeUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=" + apiKey;
+    // need to specify city/country for multiple with same name?
+    fetch(geoCodeUrl)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            console.log(data);
+            // iterate through returned data and grab data: latitude and longitude 
+            for (var i = 0; i < data.length; i++) {
+                console.log(data[i].local_names.en);
+                var latitude = data[i].lat;
+                console.log(latitude);
+                var longitude = data[i].lon;
+                console.log(longitude);
+            }
+        });
+};
 
-// }
-
+var cityGeoCode = getGeoCode();
+// event listener does not seem to be working properly right now, when webpage loads - runs w/o being called....
+searchButton.addEventListener("click", console.log("wow"));
 
 // API Call - Current Weather Data
 // https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
