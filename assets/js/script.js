@@ -30,11 +30,11 @@
 // setup below!!!
 
 // global variables
-var apiKey = "e3762bdf720c3dc3229b0039e02fa026";
+var apiKey = "dd2805d75b3cf217071362e5f5560240";
 var city = document.getElementById("city-entry").value;
 var searchButton = document.getElementById("search-btn");
 var currentWeatherCard = document.getElementById("current-weather");
-var date = dayjs(MMMM / DD / YYYY);
+// var date = dayjs(MMMM / DD / YYYY);
 var day1 = document.getElementById("day-1");
 var day2 = document.getElementById("day-2");
 var day3 = document.getElementById("day-3");
@@ -42,17 +42,15 @@ var day4 = document.getElementById("day-4");
 var day5 = document.getElementById("day-5");
 
 
-// API Call for geocoding - allows user to type name in and get api response
-// http://api.openweathermap.org/geo/1.0/direct?q={city name}&limit={limit}&appid={API key}
-// limit = 1
-// http://api.openweathermap.org/geo/1.0/direct?q={city name}&limit=1&appid=e3762bdf720c3dc3229b0039e02fa026
 var cityGeoCode = getGeoCode();
 
 // when user searches a city name, want this function to run to grab city lat & long and input into the functions below
 function getGeoCode() {
-    var geoCodeReq = "url";
-
-    fetch(geoCodeReq)
+    // created a url variable that concatenates query parameter to request city input and parameter for specific api key 
+    var geoCodeUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=" + apiKey;
+    console.log(geoCodeUrl);
+    // need to specify city/country for multiple with same name?
+    /*fetch(geoCodeUrl)
         .then(function (response) {
             return response.json();
         })
@@ -65,17 +63,20 @@ function getGeoCode() {
         var latitude = ;
         var longitude = ;
     }
-
+*/
 }
+
+searchButton.addEventListener("click", cityGeoCode);
+
 
 // API Call - Current Weather Data
 // https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
-var currentWeather = getCurrentWeather();
+/*var currentWeather = getCurrentWeather();
 
 function getCurrentWeather() {
-    var currentWeatherReq = "url";
+    var currentWeatherUrl = "url";
 
-    fetch(currentWeatherReq)
+    fetch(currentWeatherUrl)
         .then(function (response) {
             return response.json();
         })
@@ -99,9 +100,9 @@ function getCurrentWeather() {
 var weatherForecast = getWeatherForecast();
 
 function getWeatherForecast() {
-    var forecastReq = "url";
+    var forecastUrl = "url";
 
-    fetch(forecastReq)
+    fetch(forecastUrl)
         .then(function (response) {
             return response.json();
         })
@@ -122,4 +123,4 @@ function getWeatherForecast() {
 }
 
 // when the user clicks search the weather data for that city will append to the webpage
-searchButton.addEventListener("click", getGeoCode, getCurrentWeather, getWeatherForecast);
+ //, getCurrentWeather, getWeatherForecast); */
