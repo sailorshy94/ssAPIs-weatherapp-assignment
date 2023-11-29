@@ -2,8 +2,6 @@
 // populate data = make a container, populate the container w/ selected data!
 // want to be able to use JS to make cities searched persist under submit button
 
-// appid = e3762bdf720c3dc3229b0039e02fa026
-
 // fetch - pass the url
 // fetch ("url")
 // take response and convert to JSON
@@ -32,6 +30,8 @@
 // setup below!!!
 
 // global variables
+var apiKey = "e3762bdf720c3dc3229b0039e02fa026";
+var city = document.getElementById("city-entry").value;
 var searchButton = document.getElementById("search-btn");
 var currentWeatherCard = document.getElementById("current-weather");
 var date = dayjs(MMMM / DD / YYYY);
