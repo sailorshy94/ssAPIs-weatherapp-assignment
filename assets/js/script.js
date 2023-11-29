@@ -28,7 +28,6 @@ function getGeoCode() {
     var city = document.getElementById("city-entry").value;
     // created a url variable that concatenates query parameter to request city input and parameter for specific api key 
     var geoCodeUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=" + apiKey;
-    // need to specify city/country for multiple with same name?
     fetch(geoCodeUrl)
         .then(function (response) {
             return response.json();
