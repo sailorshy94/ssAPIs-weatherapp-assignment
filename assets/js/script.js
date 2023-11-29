@@ -33,7 +33,8 @@
 
 // global variables
 var searchButton = document.getElementById("search-btn");
-var currentWeatherEl = document.getElementById("current-weather");
+var currentWeatherCard = document.getElementById("current-weather");
+var date = dayjs(MMMM / DD / YYYY);
 
 
 // API Call for geocoding - allows user to type name in and get api response
@@ -53,9 +54,11 @@ function getGeoCode() {
         .then(function (data) {
             console.log(data);
         })
-    // iterate through returned data and grab: icon, temp, wind, humidity + append them to webpage w/in containing el
+    // iterate through returned data and grab: latitude and longitude 
     for (var i = 0; i < data.length; i++) {
         console.log(data[i].name);
+        var latitude = ;
+        var longitude = ;
     }
 
 }
@@ -79,6 +82,10 @@ function getCurrentWeather() {
     // iterate through returned data and grab: icon, temp, wind, humidity + append them to webpage w/in containing el
     for (var i = 0; i < data.length; i++) {
         console.log(data[i].name);
+        var icon = ;
+        var temp = ;
+        var wind = ;
+        var humid = ;
     }
 }
 
@@ -102,6 +109,10 @@ function getWeatherForecast() {
     // iterate through returned data and grab: icon, temp, wind, humidity + append them to webpage w/in containing el
     for (var i = 0; i < data.length; i++) {
         console.log(data[i].name);
+        var icon = ;
+        var temp = ;
+        var wind = ;
+        var humid = ;
     }
 }
 
