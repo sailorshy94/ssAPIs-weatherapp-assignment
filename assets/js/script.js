@@ -35,6 +35,11 @@
 var searchButton = document.getElementById("search-btn");
 var currentWeatherCard = document.getElementById("current-weather");
 var date = dayjs(MMMM / DD / YYYY);
+var day1 = document.getElementById("day-1");
+var day2 = document.getElementById("day-2");
+var day3 = document.getElementById("day-3");
+var day4 = document.getElementById("day-4");
+var day5 = document.getElementById("day-5");
 
 
 // API Call for geocoding - allows user to type name in and get api response
