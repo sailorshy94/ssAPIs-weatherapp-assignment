@@ -37,6 +37,7 @@
 // http://api.openweathermap.org/geo/1.0/direct?q={city name}&limit=1&appid=e3762bdf720c3dc3229b0039e02fa026
 var cityGeoCode = getGeoCode();
 
+// when user searches a city name, want this function to run to grab city lat & long and input into the functions below
 function getGeoCode() {
     var geoCodeReq = "url";
 
@@ -47,7 +48,7 @@ function getGeoCode() {
         .then(function (data) {
             console.log(data);
         })
-
+    // iterate through returned data and grab: icon, temp, wind, humidity + append them to webpage w/in containing el
     for (var i = 0; i < data.length; i++) {
         console.log(data[i].name);
     }
@@ -70,6 +71,10 @@ function getCurrentWeather() {
             // for weather data = icon, temp, wind, humidity
             console.log(data);
         })
+    // iterate through returned data and grab: icon, temp, wind, humidity + append them to webpage w/in containing el
+    for (var i = 0; i < data.length; i++) {
+        console.log(data[i].name);
+    }
 }
 
 // API Call - 5 day/ 3 hr forecast data
@@ -89,8 +94,11 @@ function getWeatherForecast() {
             // 5 seperate cards, one per day
             console.log(data);
         })
-
+    // iterate through returned data and grab: icon, temp, wind, humidity + append them to webpage w/in containing el
     for (var i = 0; i < data.length; i++) {
         console.log(data[i].name);
     }
 }
+
+// when the user clicks search the weather data for that city will append to the webpage
+searchButton.addEventListener("click", getGeoCode, getCurrentWeather, getWeatherForecast);
