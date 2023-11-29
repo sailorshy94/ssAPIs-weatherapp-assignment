@@ -31,7 +31,8 @@
 
 // global variables
 var apiKey = "dd2805d75b3cf217071362e5f5560240";
-var city = document.getElementById("city-entry").value;
+// var city = document.getElementById("city-entry").value;
+var city = "Anchorage";
 var searchButton = document.getElementById("search-btn");
 var currentWeatherCard = document.getElementById("current-weather");
 // var date = dayjs(MMMM / DD / YYYY);
@@ -42,15 +43,16 @@ var day4 = document.getElementById("day-4");
 var day5 = document.getElementById("day-5");
 
 
-var cityGeoCode = getGeoCode();
+// searchButton.addEventListener("click", cityGeoCode);
+
+// var cityGeoCode = getGeoCode();
 
 // when user searches a city name, want this function to run to grab city lat & long and input into the functions below
-function getGeoCode() {
+// function getGeoCode() {
     // created a url variable that concatenates query parameter to request city input and parameter for specific api key 
     var geoCodeUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=" + apiKey;
-    console.log(geoCodeUrl);
     // need to specify city/country for multiple with same name?
-    /*fetch(geoCodeUrl)
+   fetch(geoCodeUrl)
         .then(function (response) {
             return response.json();
         })
@@ -58,15 +60,13 @@ function getGeoCode() {
             console.log(data);
         })
     // iterate through returned data and grab: latitude and longitude 
-    for (var i = 0; i < data.length; i++) {
-        console.log(data[i].name);
-        var latitude = ;
-        var longitude = ;
-    }
-*/
-}
+    // for (var i = 0; i < data.length; i++) {
+    //     console.log(data[i].name);
+    //     var latitude = ;
+    //     var longitude = ;
+    // }
 
-searchButton.addEventListener("click", cityGeoCode);
+// }
 
 
 // API Call - Current Weather Data
