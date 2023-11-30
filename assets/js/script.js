@@ -24,10 +24,14 @@ var day4 = document.getElementById("day-4");
 var day5 = document.getElementById("day-5");
 
 // when user searches a city name, want this function to run to grab city lat & long and input into the functions below
+
+// function retreiveWeather() {
+
 function getGeoCode() {
     var city = document.getElementById("city-entry").value;
     // created a url variable that concatenates query parameter to request city input and parameter for specific api key 
     var geoCodeUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=" + apiKey;
+
     fetch(geoCodeUrl)
         .then(function (response) {
             return response.json();
@@ -36,43 +40,42 @@ function getGeoCode() {
             console.log(data);
             // iterate through returned data and grab data: latitude and longitude 
             for (var i = 0; i < data.length; i++) {
-                console.log(data[i].local_names.en);
-                var latitude = data[i].lat;
-                console.log(latitude);
-                var longitude = data[i].lon;
-                console.log(longitude);
+                var lat = data[i].lat;
+                var lon = data[i].lon;
             }
-        });
+            // passes lat & lon values above into function call & runs the function = takes latitude and longitude and uses it to retrieve the appropriate city
+            getWeatherForecast(lat, lon);
+        })
 };
 
-searchButton.addEventListener("click", getGeoCode);
+// 
+function getWeatherForecast(lat, lon) {
+    var forecastUrl = "http://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=" + apiKey;
 
-// API Call - Current Weather Data
-// https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
-/*var currentWeather = getCurrentWeather();
-
-function getCurrentWeather() {
-    var currentWeatherUrl = "url";
-
-    fetch(currentWeatherUrl)
+    fetch(forecastUrl)
         .then(function (response) {
             return response.json();
         })
         .then(function (data) {
             // use query params to make requests more specific
             // for weather data = icon, temp, wind, humidity
+            // 5 seperate cards, one per day
             console.log(data);
         })
     // iterate through returned data and grab: icon, temp, wind, humidity + append them to webpage w/in containing el
-    for (var i = 0; i < data.length; i++) {
-        console.log(data[i].name);
-        var icon = ;
-        var temp = ;
-        var wind = ;
-        var humid = ;
-    }
-}
+    // for (var i = 0; i < data.length; i++) {
+    //     console.log(data[i].name);
+    //     var icon = ;
+    //     var temp = ;
+    //     var wind = ;
+    //     var humid = ;
+    // }
+};
 
+
+searchButton.addEventListener("click", getGeoCode);
+
+/*
 // API Call - 5 day/ 3 hr forecast data
 // api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
 var weatherForecast = getWeatherForecast();
