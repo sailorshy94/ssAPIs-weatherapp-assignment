@@ -1,6 +1,5 @@
 // will use local storage to store persistent data
 // populate data = make a container, populate the container w/ selected data!
-// want to be able to use JS to make cities searched persist under submit button
 
 // to append data to a webpage:
 // declare global variables = containers and/or button - use ids = .getElementById("elName");
@@ -10,25 +9,22 @@
 // outside the function, call it with .addEventListener("click", function name)
 // !! when do this, place variables w/ their text content & append methods in a group together
 
-// setup below!!!
-
 // global variables
 var apiKey = "dd2805d75b3cf217071362e5f5560240";
 var searchButton = document.querySelector("#search-button");
 var currentWeatherCard = document.getElementById("current-weather");
-// var date = dayjs(MMMM / DD / YYYY);
 var day1 = document.getElementById("day-1");
 var day2 = document.getElementById("day-2");
 var day3 = document.getElementById("day-3");
 var day4 = document.getElementById("day-4");
 var day5 = document.getElementById("day-5");
 
-// when user searches a city name, want this function to run to grab city lat & long and input into the functions below
-
 // function retreiveWeather() {
 
 function getGeoCode() {
     var city = document.getElementById("city-entry").value;
+    // TODO : add a function to retrieve this value and set to local storage to persist to webpage under search bar and contain previous searches!!!
+    // localStorage.setItem(); localStorage.getItem();
     // created a url variable that concatenates query parameter to request city input and parameter for specific api key 
     var geoCodeUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=" + apiKey;
 
@@ -38,7 +34,7 @@ function getGeoCode() {
         })
         .then(function (data) {
             console.log(data);
-            // iterate through returned data and grab data: latitude and longitude 
+            // iterate through returned data array and grab specific data items: latitude and longitude 
             for (var i = 0; i < data.length; i++) {
                 var lat = data[i].lat;
                 var lon = data[i].lon;
@@ -48,64 +44,34 @@ function getGeoCode() {
         })
 };
 
-// 
+// takes the lat and lon from the geoCode function and uses it to retrieve the 5-day forecast information for the correlating city
 function getWeatherForecast(lat, lon) {
+    // requests the forecast for city
     var forecastUrl = "http://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=" + apiKey;
-
+    // grabs forecast data from request
     fetch(forecastUrl)
         .then(function (response) {
             return response.json();
         })
         .then(function (data) {
-            // use query params to make requests more specific
-            // for weather data = icon, temp, wind, humidity
-            // 5 seperate cards, one per day
             console.log(data);
-            // iterate through returned data and grab: icon, temp, wind, humidity + append them to webpage w/in containing el
-            // for (var i = 0; i < data.length; i++) {
-                var date = data.list[0].dt_txt;
-                var temp = data.list[0].main.temp;
-                var humidity = data.list[0].main.humidity;
-                var wind = data.list[0].wind.speed;
-                console.log(wind);
-            // }
-        })
-
-    // var temp = ;
-    // var wind = ;
-    // var humid = ;
+            // search through returned data and grab specific nodes for icon, temp, wind, humidity
+            var date = data.list[0].dt_txt;
+            var icon = data.list[0].weather[0].icon;
+            var temp = data.list[0].main.temp;
+            var humidity = data.list[0].main.humidity;
+            var wind = data.list[0].wind.speed;
+        }
+        )
 };
-
 
 searchButton.addEventListener("click", getGeoCode);
 
-/*
-// API Call - 5 day/ 3 hr forecast data
-// api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
-var weatherForecast = getWeatherForecast();
-
-function getWeatherForecast() {
-    var forecastUrl = "url";
-
-    fetch(forecastUrl)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            // use query params to make requests more specific
-            // for weather data = icon, temp, wind, humidity
-            // 5 seperate cards, one per day
-            console.log(data);
-        })
-    // iterate through returned data and grab: icon, temp, wind, humidity + append them to webpage w/in containing el
-    for (var i = 0; i < data.length; i++) {
-        console.log(data[i].name);
-        var icon = ;
-        var temp = ;
-        var wind = ;
-        var humid = ;
-    }
-}
-
-// when the user clicks search the weather data for that city will append to the webpage
- //, getCurrentWeather, getWeatherForecast); */
+// one large card at top of others for current day
+// 5 separate cards, one per day
+// day 1
+// day 2
+// day 3
+// day 4
+// day 5
+a
