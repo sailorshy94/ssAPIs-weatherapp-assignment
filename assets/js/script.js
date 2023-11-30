@@ -23,7 +23,10 @@ var day5 = document.getElementById("day-5");
 
 function getGeoCode() {
     var city = document.getElementById("city-entry").value;
-    // TODO : add a function to retrieve this value and set to local storage to persist to webpage under search bar and contain previous searches!!!
+    // TODO : add a method to retrieve this value and set to local storage to persist to webpage under search bar and contain previous searches!!!
+    // sets the user searched city as an item in local storage
+    localStorage.setItem("cityQ", JSON.stringify(city));
+    console.log(JSON.parse(localStorage.getItem("cityQ")));
     // localStorage.setItem(); localStorage.getItem();
     // created a url variable that concatenates query parameter to request city input and parameter for specific api key 
     var geoCodeUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=" + apiKey;
@@ -55,7 +58,7 @@ function getWeatherForecast(lat, lon) {
         })
         .then(function (data) {
             console.log(data);
-            // search through returned data and grab specific nodes for icon, temp, wind, humidity
+            // search through returned object and grab specific nodes for icon, temp, wind, humidity
             var date = data.list[0].dt_txt;
             var icon = data.list[0].weather[0].icon;
             var temp = data.list[0].main.temp;
@@ -74,4 +77,3 @@ searchButton.addEventListener("click", getGeoCode);
 // day 3
 // day 4
 // day 5
-a
