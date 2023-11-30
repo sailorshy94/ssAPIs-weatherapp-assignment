@@ -61,15 +61,19 @@ function getWeatherForecast(lat, lon) {
             // for weather data = icon, temp, wind, humidity
             // 5 seperate cards, one per day
             console.log(data);
+            // iterate through returned data and grab: icon, temp, wind, humidity + append them to webpage w/in containing el
+            // for (var i = 0; i < data.length; i++) {
+                var date = data.list[0].dt_txt;
+                var temp = data.list[0].main.temp;
+                var humidity = data.list[0].main.humidity;
+                var wind = data.list[0].wind.speed;
+                console.log(wind);
+            // }
         })
-    // iterate through returned data and grab: icon, temp, wind, humidity + append them to webpage w/in containing el
-    // for (var i = 0; i < data.length; i++) {
-    //     console.log(data[i].name);
-    //     var icon = ;
-    //     var temp = ;
-    //     var wind = ;
-    //     var humid = ;
-    // }
+
+    // var temp = ;
+    // var wind = ;
+    // var humid = ;
 };
 
 

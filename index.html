@@ -12,7 +12,7 @@
 </head>
 
 <body>
-<!-- save aesthetics for LAST!! -->
+    <!-- save aesthetics for LAST!! -->
     <div class="container-fluid">
         <!-- bar across the top w/ heading -->
         <div class="row hero text-center">
@@ -30,7 +30,9 @@
                             name="city-entry">
                         <!-- btn block = block lvl btns that span full width of parent el -->
                         <!-- TODO: fix button sizing, not spanning length of parent container -->
-                        <button type="button" id="search-button" class="btn btn-primary btn-block">Search</button>
+                        <div class="d-grid gap-2">
+                            <button type="button" id="search-button" class="btn btn-primary btn-block">Search</button>
+                        </div>
                     </form>
                 </div>
                 <!-- need a line and then space where searches will persist on the pg -->
@@ -95,7 +97,7 @@
                         </div>
 
                         <div class="col">
-                            <div class="card"  id="day-4">
+                            <div class="card" id="day-4">
                                 <div class="card-body">
                                     <h5 class="card-title">(MM/DD/YYYY)</h5>
                                     <p class="card-text">icon</p>
