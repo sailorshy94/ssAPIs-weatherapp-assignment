@@ -30,14 +30,18 @@
                             name="city-entry">
                         <!-- btn block = block lvl btns that span full width of parent el -->
                         <!-- TODO: fix button sizing, not spanning length of parent container -->
-                        <div class="d-grid gap-2">
+                        <div class="d-grid gap-2 mx-auto">
                             <button type="button" id="search-button" class="btn btn-primary btn-block">Search</button>
                         </div>
                     </form>
                 </div>
                 <!-- need a line and then space where searches will persist on the pg -->
                 <!-- TODO: append local storage to this area as individual buttons -->
-                <div class="card"></div>
+                <div class="card" id="prev-searches">
+                    <div class="d-grid gap-2 mx-auto">
+                        <!-- <button class="btn btn-primary btn-block" type="button">Button</button> -->
+                    </div>
+                </div>
             </div>
 
             <div class="col col-md-10">

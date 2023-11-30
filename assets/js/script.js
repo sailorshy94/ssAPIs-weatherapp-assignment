@@ -13,6 +13,7 @@
 var apiKey = "dd2805d75b3cf217071362e5f5560240";
 var searchButton = document.querySelector("#search-button");
 var currentWeatherCard = document.getElementById("current-weather");
+var prevSearches = document.getElementById("prev-searches");
 var day1 = document.getElementById("day-1");
 var day2 = document.getElementById("day-2");
 var day3 = document.getElementById("day-3");
@@ -22,12 +23,23 @@ var day5 = document.getElementById("day-5");
 // function retreiveWeather() {
 
 function getGeoCode() {
+    prevSearches.innerHTML = "";
     var city = document.getElementById("city-entry").value;
-    // TODO : add a method to retrieve this value and set to local storage to persist to webpage under search bar and contain previous searches!!!
+    console.log(city);
     // sets the user searched city as an item in local storage
-    localStorage.setItem("cityQ", JSON.stringify(city));
-    console.log(JSON.parse(localStorage.getItem("cityQ")));
-    // localStorage.setItem(); localStorage.getItem();
+    var cities = localStorage.getItem("cityQ");
+    var parsedCities = JSON.parse(cities) || [];
+    parsedCities.push(city);
+    var citiesStringified = JSON.stringify(parsedCities);
+    localStorage.setItem("cityQ", citiesStringified);
+
+    for (i = 0; i < parsedCities.length; i++) {
+        var cityHistBtnEl = document.createElement("button");
+        cityHistBtnEl.innerHTML = parsedCities[i];
+        // cityHistBtnEl.classList.add("btn btn-primary btn-block");
+        prevSearches.appendChild(cityHistBtnEl);
+    }
+
     // created a url variable that concatenates query parameter to request city input and parameter for specific api key 
     var geoCodeUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=" + apiKey;
 
