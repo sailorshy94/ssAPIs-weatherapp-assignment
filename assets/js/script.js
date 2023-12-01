@@ -13,7 +13,7 @@
 var apiKey = "dd2805d75b3cf217071362e5f5560240";
 var searchButton = document.querySelector("#search-button");
 var currentWeatherCard = document.getElementById("current-weather");
-var prevSearches = document.getElementById("prev-searches");
+var prevSearchesEl = document.getElementById("prev-searches");
 var day1 = document.getElementById("day-1");
 var day2 = document.getElementById("day-2");
 var day3 = document.getElementById("day-3");
@@ -23,21 +23,28 @@ var day5 = document.getElementById("day-5");
 // function retreiveWeather() {
 
 function getGeoCode() {
-    prevSearches.innerHTML = "";
+    // sets the previous searches element's inner HTML to a str
+    prevSearchesEl.innerHTML = "";
+    // grabs the city name that is input by page user
     var city = document.getElementById("city-entry").value;
-    console.log(city);
-    // sets the user searched city as an item in local storage
+    // sets value of var to local storage item
     var cities = localStorage.getItem("cityQ");
+    // sets value of var to an array of cities from above/empty array
     var parsedCities = JSON.parse(cities) || [];
+    // pushes the city name input by user into the array
     parsedCities.push(city);
+    // converts the array data to a string
     var citiesStringified = JSON.stringify(parsedCities);
+    // sets local storage to above string with a key of cityQ
     localStorage.setItem("cityQ", citiesStringified);
-
+    // for loop iterates through the array of cities and creates a button for each and gives it button class
     for (i = 0; i < parsedCities.length; i++) {
         var cityHistBtnEl = document.createElement("button");
         cityHistBtnEl.innerHTML = parsedCities[i];
-        // cityHistBtnEl.classList.add("btn btn-primary btn-block");
-        prevSearches.appendChild(cityHistBtnEl);
+        prevSearchesEl.appendChild(cityHistBtnEl);
+        cityHistBtnEl.classList.add("btn","btn-primary","btn-block");
+        // TODO: buttons need to link to previously searched cities weather data entry
+
     }
 
     // created a url variable that concatenates query parameter to request city input and parameter for specific api key 
