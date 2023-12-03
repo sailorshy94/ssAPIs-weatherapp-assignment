@@ -14,12 +14,7 @@ var apiKey = "dd2805d75b3cf217071362e5f5560240";
 var searchButton = document.querySelector("#search-button");
 var currentWeatherCard = document.getElementById("current-weather");
 var prevSearchesEl = document.getElementById("prev-searches");
-// var day1 = document.getElementById("day-1");
-// var day2 = document.getElementById("day-2");
-// var day3 = document.getElementById("day-3");
-// var day4 = document.getElementById("day-4");
-// var day5 = document.getElementById("day-5");
-// var cityLink = getWeatherForecast();
+var forecastCard = document.getElementById("5-day-forecast");
 
 // function retreiveWeather() {
 
@@ -74,6 +69,7 @@ function getGeoCode() {
             }
             // passes lat & lon values above into function call & runs the function = takes latitude and longitude and uses it to retrieve the appropriate city
             getCurrentWeatherForecast(lat, lon);
+            getWeatherForecast(lat, lon);
         })
 };
 
@@ -146,34 +142,57 @@ function getWeatherForecast(lat, lon) {
         })
         .then(function (data) {
             console.log(data);
-            var loc = data.city.name;
-            var date = data.list[0].dt_txt;
-            var icon = data.list[0].weather[0].icon;
-            // URL is https://openweathermap.org/img/wn/10d@2x.png
-            // url created will grab the weather icon for the day
-            var iconUrl = "https://openweathermap.org/img/wn/" + icon + "@2x.png";
-            var temp = data.list[0].main.temp;
-            var humidity = data.list[0].main.humidity;
-            var wind = data.list[0].wind.speed;
+            for (var list of data.list) {
+                console.log(list.dt_txt);
+                console.log(list.main.temp);
+                console.log(list.main.humidity);
+                console.log(list.wind.speed);
+                // var dates = ;
+                // var datesFormatted = dayjs(dates).format("MM/DD/YY");
 
-            var weatherCardBodyEl = document.createElement("div");
-            currentWeatherCard.appendChild(weatherCardBodyEl);
-            weatherCardBodyEl.classList.add("card-body");
+                // var cardEl = document.createElement("div");
+                // forecastCard.appendChild(cardEl);
+                // cardEl.classList.add("card");
+                // cardEl.setAttribute("id", "day-1");
 
-            var cardTitle = document.createElement("h5");
-            weatherCardBodyEl.appendChild(cardTitle);
-            cardTitle.classList.add("card-title");
-            // used Day.js to properly display date without extra text and in correct format
-            var currentDate = dayjs(date).format("MM/DD/YY");
-            // takes location name and adds space between it and the date
-            cardTitle.innerHTML = loc.toString() + " " + currentDate;
+                // var cardBody = document.createElement("div");
+                // cardEl.appendChild(cardBody);
+                // cardBody.classList.add("card-body");
 
-            var currentIcon = document.createElement("img");
-            weatherCardBodyEl.appendChild(currentIcon);
-            currentIcon.classList.add("card-img");
-            currentIcon.setAttribute("src", iconUrl);
-            document.querySelector(".card-img").style.width = "5%";
+                // var date = document.createElement("h5");
+                // cardBody.appendChild(date);
+                // date.innerHTML = datesFormatted;
+            
+                // var loc = data.city.name;
+                // var date = data.list[0].dt_txt;
+                // var icon = data.list[0].weather[0].icon;
+                // // URL is https://openweathermap.org/img/wn/10d@2x.png
+                // // url created will grab the weather icon for the day
+                // var iconUrl = "https://openweathermap.org/img/wn/" + icon + "@2x.png";
+                // var temp = data.list[0].main.temp;
+                // var humidity = data.list[0].main.humidity;
+                // var wind = data.list[0].wind.speed;
+
+                // var weatherCardBodyEl = document.createElement("div");
+                // currentWeatherCard.appendChild(weatherCardBodyEl);
+                // weatherCardBodyEl.classList.add("card-body");
+
+                // var cardTitle = document.createElement("h5");
+                // weatherCardBodyEl.appendChild(cardTitle);
+                // cardTitle.classList.add("card-title");
+                // // used Day.js to properly display date without extra text and in correct format
+                // var currentDate = dayjs(date).format("MM/DD/YY");
+                // // takes location name and adds space between it and the date
+                // cardTitle.innerHTML = loc.toString() + " " + currentDate;
+
+                // var currentIcon = document.createElement("img");
+                // weatherCardBodyEl.appendChild(currentIcon);
+                // currentIcon.classList.add("card-img");
+                // currentIcon.setAttribute("src", iconUrl);
+                // document.querySelector(".card-img").style.width = "5%";
+            }
         }
+
         )
 };
 
