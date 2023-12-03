@@ -39,6 +39,8 @@ function getGeoCode() {
     // sets local storage to above string with a key of cityQ
     localStorage.setItem("cityQ", citiesStringified);
 
+    genCityHistBtns();
+
     // wrap for loop that creates buttons inside a function
     function genCityHistBtns() {
         // for loop iterates through the array of cities and creates a button for each and gives it button class
@@ -55,8 +57,6 @@ function getGeoCode() {
             // TODO: buttons need to link to previously searched cities weather data entry
         }
     }
-    // creates the city history buttons after the search bar is clicked
-    genCityHistBtns();
 
     // created a url variable that concatenates query parameter to request city input and parameter for specific api key 
     var geoCodeUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=" + apiKey;
@@ -96,8 +96,19 @@ function getWeatherForecast(lat, lon) {
             //     <p class="card-text">Temp:</p>
             //     <p class="card-text">Wind:</p>
             //     <p class="card-text">Humidity:</p>
-            // </div>
-            // </div>
+            //
+            
+            var weatherCardBodyEl = document.createElement("div");
+            currentWeatherCard.appendChild(weatherCardBodyEl);
+            weatherCardBodyEl.classList.add("card-body");
+
+            var cardTitle = document.createElement("h5");
+            weatherCardBodyEl.appendChild(cardTitle);
+            cardTitle.classList.add("card-title");
+            // cardTitle.innerHTML = ;
+
+            var loc = data.city.name;
+            console.log(loc);
             var date = data.list[0].dt_txt;
             var icon = data.list[0].weather[0].icon;
             var temp = data.list[0].main.temp;
