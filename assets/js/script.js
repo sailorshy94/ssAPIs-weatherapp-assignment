@@ -1,13 +1,3 @@
-// will use local storage to store persistent data
-// populate data = make a container, populate the container w/ selected data!
-
-// to append data to a webpage:
-// declare global variables = containers and/or button - use ids = .getElementById("elName");
-// can declare variable with url to use in function
-// set up a for loop to iterate thru data after .then functions
-// use the two .then functions first, create variables for elements to be appended (ex. "h1", "p"), use .textContent property to to set text, use data[i].dataname to select data being retrieved, and finally use .append to append elements with text to the webpage (referencing the variables created inside the function for the elements)
-// outside the function, call it with .addEventListener("click", function name)
-// !! when do this, place variables w/ their text content & append methods in a group together
 
 // global variables
 var apiKey = "dd2805d75b3cf217071362e5f5560240";
@@ -142,11 +132,17 @@ function getWeatherForecast(lat, lon) {
         })
         .then(function (data) {
             console.log(data);
+            // for of loop will navigate to the array within list that holds the data needed for webpage; console logs selected data for each array
+            // currently does this for each timestamp (every 3 hours) - can I use UNIX timestamp to narrow this down?
+            // could use timestamp w/ if statement to get it to only log one time/day
             for (var list of data.list) {
                 console.log(list.dt_txt);
                 console.log(list.main.temp);
                 console.log(list.main.humidity);
                 console.log(list.wind.speed);
+
+                // if (list.dt === 1701604800)????
+
                 // var dates = ;
                 // var datesFormatted = dayjs(dates).format("MM/DD/YY");
 
@@ -162,7 +158,7 @@ function getWeatherForecast(lat, lon) {
                 // var date = document.createElement("h5");
                 // cardBody.appendChild(date);
                 // date.innerHTML = datesFormatted;
-            
+
                 // var loc = data.city.name;
                 // var date = data.list[0].dt_txt;
                 // var icon = data.list[0].weather[0].icon;
