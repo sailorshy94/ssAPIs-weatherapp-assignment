@@ -14,11 +14,12 @@ var apiKey = "dd2805d75b3cf217071362e5f5560240";
 var searchButton = document.querySelector("#search-button");
 var currentWeatherCard = document.getElementById("current-weather");
 var prevSearchesEl = document.getElementById("prev-searches");
-var day1 = document.getElementById("day-1");
-var day2 = document.getElementById("day-2");
-var day3 = document.getElementById("day-3");
-var day4 = document.getElementById("day-4");
-var day5 = document.getElementById("day-5");
+// var day1 = document.getElementById("day-1");
+// var day2 = document.getElementById("day-2");
+// var day3 = document.getElementById("day-3");
+// var day4 = document.getElementById("day-4");
+// var day5 = document.getElementById("day-5");
+// var cityLink = getWeatherForecast();
 
 // function retreiveWeather() {
 
@@ -37,15 +38,25 @@ function getGeoCode() {
     var citiesStringified = JSON.stringify(parsedCities);
     // sets local storage to above string with a key of cityQ
     localStorage.setItem("cityQ", citiesStringified);
-    // for loop iterates through the array of cities and creates a button for each and gives it button class
-    for (i = 0; i < parsedCities.length; i++) {
-        var cityHistBtnEl = document.createElement("button");
-        cityHistBtnEl.innerHTML = parsedCities[i];
-        prevSearchesEl.appendChild(cityHistBtnEl);
-        cityHistBtnEl.classList.add("btn","btn-primary","btn-block");
-        // TODO: buttons need to link to previously searched cities weather data entry
 
+    // wrap for loop that creates buttons inside a function
+    function genCityHistBtns() {
+        // for loop iterates through the array of cities and creates a button for each and gives it button class
+        for (i = 0; i < parsedCities.length; i++) {
+            var cityHistBtnEl = document.createElement("button");
+            prevSearchesEl.appendChild(cityHistBtnEl);
+            cityHistBtnEl.innerHTML = parsedCities[i];
+            cityHistBtnEl.classList.add("btn", "btn-primary", "btn-block");
+
+            var cityLinkEl = document.createElement("a");
+            cityHistBtnEl.appendChild(cityLinkEl);
+            // cityLinkEl.innerHTML = 
+            // var cityBtns = document.getElementsByTagName()
+            // TODO: buttons need to link to previously searched cities weather data entry
+        }
     }
+    // creates the city history buttons after the search bar is clicked
+    genCityHistBtns();
 
     // created a url variable that concatenates query parameter to request city input and parameter for specific api key 
     var geoCodeUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=" + apiKey;
@@ -78,6 +89,15 @@ function getWeatherForecast(lat, lon) {
         .then(function (data) {
             console.log(data);
             // search through returned object and grab specific nodes for icon, temp, wind, humidity
+            // <div class="card">
+            // <div class="card-body" id="current-weather">
+            //     <h5 class="card-title">(MM/DD/YYYY)</h5>
+            //     <p class="card-text">icon</p>
+            //     <p class="card-text">Temp:</p>
+            //     <p class="card-text">Wind:</p>
+            //     <p class="card-text">Humidity:</p>
+            // </div>
+            // </div>
             var date = data.list[0].dt_txt;
             var icon = data.list[0].weather[0].icon;
             var temp = data.list[0].main.temp;
