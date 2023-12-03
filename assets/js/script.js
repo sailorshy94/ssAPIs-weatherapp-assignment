@@ -95,26 +95,35 @@ function getWeatherForecast(lat, lon) {
             //     <p class="card-text">icon</p>
             //     <p class="card-text">Temp:</p>
             //     <p class="card-text">Wind:</p>
-            //     <p class="card-text">Humidity:</p>
-            //
-            
-            var weatherCardBodyEl = document.createElement("div");
-            currentWeatherCard.appendChild(weatherCardBodyEl);
-            weatherCardBodyEl.classList.add("card-body");
+            //     <p class="card-text">Humidity</p>
 
-            var cardTitle = document.createElement("h5");
-            weatherCardBodyEl.appendChild(cardTitle);
-            cardTitle.classList.add("card-title");
-            // cardTitle.innerHTML = ;
+                var loc = data.city.name;
+                var date = data.list[0].dt_txt; 
+                var icon = data.list[0].weather[0].icon;
+                // URL is https://openweathermap.org/img/wn/10d@2x.png
+                // url created will grab the weather icon for the day
+                var iconUrl = "https://openweathermap.org/img/wn/" + icon + "@2x.png";
+                var temp = data.list[0].main.temp;
+                var humidity = data.list[0].main.humidity;
+                var wind = data.list[0].wind.speed;
 
-            var loc = data.city.name;
-            console.log(loc);
-            var date = data.list[0].dt_txt;
-            var icon = data.list[0].weather[0].icon;
-            var temp = data.list[0].main.temp;
-            var humidity = data.list[0].main.humidity;
-            var wind = data.list[0].wind.speed;
-        }
+                var weatherCardBodyEl = document.createElement("div");
+                currentWeatherCard.appendChild(weatherCardBodyEl);
+                weatherCardBodyEl.classList.add("card-body");
+
+                var cardTitle = document.createElement("h5");
+                weatherCardBodyEl.appendChild(cardTitle);
+                cardTitle.classList.add("card-title");
+                var currentDate = dayjs(date).format("MM/DD/YY");
+                // takes location name and adds space between it and the date
+                cardTitle.innerHTML = loc.toString() + " " + currentDate;
+
+                var currentIcon = document.createElement("img");
+                weatherCardBodyEl.appendChild(currentIcon);
+                currentIcon.classList.add("card-img");
+                currentIcon.setAttribute("src", iconUrl);
+                document.querySelector(".card-img").style.width = "5%";
+            }
         )
 };
 
