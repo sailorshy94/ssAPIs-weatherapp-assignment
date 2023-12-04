@@ -4,7 +4,7 @@ var apiKey = "dd2805d75b3cf217071362e5f5560240";
 var searchButton = document.querySelector("#search-button");
 var currentWeatherCard = document.getElementById("current-weather");
 var prevSearchesEl = document.getElementById("prev-searches");
-var forecastCard = document.getElementById("5-day-forecast");
+var forecastContainingEl = document.getElementById("5-day-forecast");
 
 // function retreiveWeather() {
 
@@ -136,10 +136,19 @@ function getWeatherForecast(lat, lon) {
             // currently does this for each timestamp (every 3 hours) - can I use UNIX timestamp to narrow this down?
             // could use timestamp w/ if statement to get it to only log one time/day
             for (var list of data.list) {
-                console.log(list.dt_txt);
+                console.log(list.dt_txt); 
                 console.log(list.main.temp);
                 console.log(list.main.humidity);
                 console.log(list.wind.speed);
+
+                // checked w dev tools & this works properly, but creates too many cards bc one for each 3 hr timeslot
+                var dailyForecastCards = document.createElement("div");
+                forecastContainingEl.appendChild(dailyForecastCards);
+                dailyForecastCards.classList.add("card-body");
+
+
+
+
 
                 // if (list.dt === 1701604800)????
 
@@ -193,11 +202,3 @@ function getWeatherForecast(lat, lon) {
 };
 
 searchButton.addEventListener("click", getGeoCode);
-
-// one large card at top of others for current day
-// 5 separate cards, one per day
-// day 1
-// day 2
-// day 3
-// day 4
-// day 5
