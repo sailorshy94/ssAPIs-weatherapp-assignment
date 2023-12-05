@@ -7,12 +7,19 @@ var prevSearchesEl = document.getElementById("prev-searches");
 var forecastContainingEl = document.getElementById("5-day-forecast");
 
 // function retreiveWeather() {
+// Make a variable for your div container that is holding our previous searches
+//We need to make an event listenr for the container
+//if the event target matches the btn being clicked
+//Call getGeoCode(and in the paranetheses we will pass the btn.textcontent to the function so it runs trhough the function with the past city)
 
-function getGeoCode() {
+
+
+function getGeoCode(pastCity) {
     // sets the previous searches element's inner HTML to a str
     prevSearchesEl.innerHTML = "";
     // grabs the city name that is input by page user
-    var city = document.getElementById("city-entry").value;
+    var city = pastCity || document.getElementById("city-entry").value;
+    console.log(city)
     // sets value of var to local storage item
     var cities = localStorage.getItem("cityQ");
     // sets value of var to an array of cities from above/empty array
@@ -135,18 +142,19 @@ function getWeatherForecast(lat, lon) {
             // for of loop will navigate to the array within list that holds the data needed for webpage; console logs selected data for each array
             // currently does this for each timestamp (every 3 hours) - can I use UNIX timestamp to narrow this down?
             // could use timestamp w/ if statement to get it to only log one time/day
-            for (var list of data.list) {
-                console.log(list.dt_txt); 
-                console.log(list.main.temp);
-                console.log(list.main.humidity);
-                console.log(list.wind.speed);
+            // for (var list of data.list) {
+                for (var i = 0; i < 40; i += 8) {
+                console.log(data.list[i].dt_txt); 
+                console.log(data.list[i].main.temp);
+                console.log(data.list[i].main.humidity);
+                console.log(data.list[i].wind.speed);
 
                 // checked w dev tools & this works properly, but creates too many cards bc one for each 3 hr timeslot
                 var dailyForecastCards = document.createElement("div");
                 forecastContainingEl.appendChild(dailyForecastCards);
                 dailyForecastCards.classList.add("card-body");
 
-
+                
 
 
 
