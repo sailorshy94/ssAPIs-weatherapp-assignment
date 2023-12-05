@@ -14,11 +14,11 @@ var forecastContainingEl = document.getElementById("5-day-forecast");
 
 
 
-function getGeoCode(pastCity) {
+function getGeoCode() {
     // sets the previous searches element's inner HTML to a str
     prevSearchesEl.innerHTML = "";
     // grabs the city name that is input by page user
-    var city = pastCity || document.getElementById("city-entry").value;
+    var city = document.getElementById("city-entry").value;
     console.log(city)
     // sets value of var to local storage item
     var cities = localStorage.getItem("cityQ");
@@ -33,7 +33,6 @@ function getGeoCode(pastCity) {
 
     genCityHistBtns();
 
-    // wrap for loop that creates buttons inside a function
     function genCityHistBtns() {
         // for loop iterates through the array of cities and creates a button for each and gives it button class
         for (i = 0; i < parsedCities.length; i++) {
@@ -44,8 +43,6 @@ function getGeoCode(pastCity) {
 
             var cityLinkEl = document.createElement("a");
             cityHistBtnEl.appendChild(cityLinkEl);
-            // cityLinkEl.innerHTML = 
-            // var cityBtns = document.getElementsByTagName()
             // TODO: buttons need to link to previously searched cities weather data entry
         }
     }
@@ -83,7 +80,7 @@ function getCurrentWeatherForecast(lat, lon) {
         .then(function (data) {
             console.log(data);
             var loc = data.name;
-            var date = dayjs().format("MM/DD/YY");
+            var date = dayjs().format("MM-DD-YYYY");
             var icon = data.weather[0].icon;
             // url created will grab the weather icon for the day
             var iconUrl = "https://openweathermap.org/img/wn/" + icon + "@2x.png";
@@ -140,21 +137,22 @@ function getWeatherForecast(lat, lon) {
         .then(function (data) {
             console.log(data);
             // for of loop will navigate to the array within list that holds the data needed for webpage; console logs selected data for each array
-            // currently does this for each timestamp (every 3 hours) - can I use UNIX timestamp to narrow this down?
-            // could use timestamp w/ if statement to get it to only log one time/day
-            // for (var list of data.list) {
-                for (var i = 0; i < 40; i += 8) {
-                console.log(data.list[i].dt_txt); 
-                console.log(data.list[i].main.temp);
-                console.log(data.list[i].main.humidity);
-                console.log(data.list[i].wind.speed);
+            for (var i = 0; i < 40; i += 8) {
+                var fiveDates = data.list[i].dt_txt;
+                console.log(fiveDates);
+                // console.log(data.list[i].main.temp);
+                // console.log(data.list[i].main.humidity);
+                // console.log(data.list[i].wind.speed);
 
-                // checked w dev tools & this works properly, but creates too many cards bc one for each 3 hr timeslot
+                // creates cards to hold forecast info
                 var dailyForecastCards = document.createElement("div");
                 forecastContainingEl.appendChild(dailyForecastCards);
                 dailyForecastCards.classList.add("card-body");
 
-                
+                var editedDates = fiveDates.substring(5, 10);
+                console.log(editedDates);
+
+
 
 
 
@@ -204,9 +202,8 @@ function getWeatherForecast(lat, lon) {
                 // currentIcon.setAttribute("src", iconUrl);
                 // document.querySelector(".card-img").style.width = "5%";
             }
-        }
+        })
 
-        )
 };
 
 searchButton.addEventListener("click", getGeoCode);
