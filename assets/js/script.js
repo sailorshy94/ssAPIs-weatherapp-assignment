@@ -4,7 +4,8 @@ var apiKey = "dd2805d75b3cf217071362e5f5560240";
 var searchButton = document.querySelector("#search-button");
 var currentWeatherCard = document.getElementById("current-weather");
 var prevSearchesEl = document.getElementById("prev-searches");
-var forecastContainingEl = document.getElementById("5-day-forecast");
+var forecastDaysEl = document.getElementById("5-day-forecast");
+var fiveDaysContainer = document.getElementById("5-day-container");
 
 // function retreiveWeather() {
 // Make a variable for your div container that is holding our previous searches
@@ -128,54 +129,36 @@ function getCurrentWeatherForecast(lat, lon) {
 
 function getWeatherForecast(lat, lon) {
     // requests the 5-day forecast for city
-    var forecastUrl = "http://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=" + apiKey;
+    var forecastDaysUrl = "http://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=" + apiKey;
     // grabs forecast data from request
-    fetch(forecastUrl)
+    fetch(forecastDaysUrl)
         .then(function (response) {
             return response.json();
         })
         .then(function (data) {
             console.log(data);
+            // appends the 5-Day Forecast title to the webpage
+            var forecastTitleEl = document.createElement("h3");
+            fiveDaysContainer.appendChild(forecastTitleEl);
+            forecastTitleEl.innerHTML = "5-Day Forecast";
             // for of loop will navigate to the array within list that holds the data needed for webpage; console logs selected data for each array
             for (var i = 0; i < 40; i += 8) {
                 var fiveDates = data.list[i].dt_txt;
-                console.log(fiveDates);
+                // need var for weather icons
                 // console.log(data.list[i].main.temp);
                 // console.log(data.list[i].main.humidity);
                 // console.log(data.list[i].wind.speed);
 
                 // creates cards to hold forecast info
                 var dailyForecastCards = document.createElement("div");
-                forecastContainingEl.appendChild(dailyForecastCards);
-                dailyForecastCards.classList.add("card-body");
-
+                forecastDaysEl.appendChild(dailyForecastCards);
+                dailyForecastCards.classList.add("card", "col", "text-center");
+                
                 var editedDates = fiveDates.substring(5, 10);
-                console.log(editedDates);
+                datesEl = document.createElement("p");
+                dailyForecastCards.appendChild(datesEl);
+                datesEl.innerHTML = editedDates.toString();
 
-
-
-
-
-                // if (list.dt === 1701604800)????
-
-                // var dates = ;
-                // var datesFormatted = dayjs(dates).format("MM/DD/YY");
-
-                // var cardEl = document.createElement("div");
-                // forecastCard.appendChild(cardEl);
-                // cardEl.classList.add("card");
-                // cardEl.setAttribute("id", "day-1");
-
-                // var cardBody = document.createElement("div");
-                // cardEl.appendChild(cardBody);
-                // cardBody.classList.add("card-body");
-
-                // var date = document.createElement("h5");
-                // cardBody.appendChild(date);
-                // date.innerHTML = datesFormatted;
-
-                // var loc = data.city.name;
-                // var date = data.list[0].dt_txt;
                 // var icon = data.list[0].weather[0].icon;
                 // // URL is https://openweathermap.org/img/wn/10d@2x.png
                 // // url created will grab the weather icon for the day
