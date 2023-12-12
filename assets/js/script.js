@@ -15,12 +15,17 @@ var fiveDaysContainer = document.getElementById("5-day-container");
 
 
 
-function getGeoCode() {
+function getGeoCode(pastCity) {
     // sets the previous searches element's inner HTML to a str
     prevSearchesEl.innerHTML = "";
+    fiveDaysContainer.innerHTML = "";
+    currentWeatherCard.innerHTML = "";
     // grabs the city name that is input by page user
     var city = document.getElementById("city-entry").value;
-    console.log(city)
+    // to get rid of pointer event issue; assign city var to innerHTML str
+    if (typeof pastCity === "string") {
+        city = pastCity;
+    }
     // sets value of var to local storage item
     var cities = localStorage.getItem("cityQ");
     // sets value of var to an array of cities from above/empty array
@@ -42,9 +47,7 @@ function getGeoCode() {
             cityHistBtnEl.innerHTML = parsedCities[i];
             cityHistBtnEl.classList.add("btn", "btn-primary", "btn-block");
 
-            var cityLinkEl = document.createElement("a");
-            cityHistBtnEl.appendChild(cityLinkEl);
-            // TODO: buttons need to link to previously searched cities weather data entry
+            // TODO: clear out prev search to keep it from making duplicate buttons
         }
     }
 
@@ -67,6 +70,15 @@ function getGeoCode() {
             getWeatherForecast(lat, lon);
         })
 };
+
+// when click btn, get innerHTML and call geoCode and assign to pastCity
+prevSearchesEl.addEventListener("click", function (event) {
+    event.stopPropagation();
+    if (event.target.matches("button")) {
+        // console.log(event.target.innerHTML);
+        getGeoCode(event.target.innerHTML);
+    }
+});
 
 // takes the lat and lon from the geoCode function and uses it to retrieve the current forecast information for the correlating city
 function getCurrentWeatherForecast(lat, lon) {
@@ -153,7 +165,7 @@ function getWeatherForecast(lat, lon) {
                 var dailyForecastCards = document.createElement("div");
                 forecastDaysEl.appendChild(dailyForecastCards);
                 dailyForecastCards.classList.add("card", "col", "text-center");
-                
+
                 var editedDates = fiveDates.substring(5, 10);
                 datesEl = document.createElement("p");
                 dailyForecastCards.appendChild(datesEl);
