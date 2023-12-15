@@ -4,20 +4,11 @@ var apiKey = "dd2805d75b3cf217071362e5f5560240";
 var searchButton = document.querySelector("#search-button");
 var currentWeatherCard = document.getElementById("current-weather");
 var prevSearchesEl = document.getElementById("prev-searches");
-var forecastDaysEl = document.getElementById("5-day-forecast");
 var fiveDaysContainer = document.getElementById("5-day-container");
-
-// function retreiveWeather() {
-// Make a variable for your div container that is holding our previous searches
-//We need to make an event listenr for the container
-//if the event target matches the btn being clicked
-//Call getGeoCode(and in the paranetheses we will pass the btn.textcontent to the function so it runs trhough the function with the past city)
-
 
 
 function getGeoCode(pastCity) {
     // sets the previous searches element's inner HTML to a str
-    prevSearchesEl.innerHTML = "";
     fiveDaysContainer.innerHTML = "";
     currentWeatherCard.innerHTML = "";
     // grabs the city name that is input by page user
@@ -34,21 +25,22 @@ function getGeoCode(pastCity) {
     parsedCities.push(city);
     // converts the array data to a string
     var citiesStringified = JSON.stringify(parsedCities);
-    // sets local storage to above string with a key of cityQ
-    localStorage.setItem("cityQ", citiesStringified);
 
-    genCityHistBtns();
+    if (typeof pastCity !== "string") {
+        // sets local storage to above string with a key of cityQ
+        // specifies difference btw searched city and if prev city search btn is being pressed
+        localStorage.setItem("cityQ", citiesStringified);
+        genCityHistBtns();
+    }
 
     function genCityHistBtns() {
-        // for loop iterates through the array of cities and creates a button for each and gives it button class
-        for (i = 0; i < parsedCities.length; i++) {
-            var cityHistBtnEl = document.createElement("button");
-            prevSearchesEl.appendChild(cityHistBtnEl);
-            cityHistBtnEl.innerHTML = parsedCities[i];
-            cityHistBtnEl.classList.add("btn", "btn-primary", "btn-block");
-
-            // TODO: clear out prev search to keep it from making duplicate buttons
-        }
+            // for loop iterates through the array of cities and creates a button for each and gives it button class
+            for (i = 0; i < parsedCities.length; i++) {
+                var cityHistBtnEl = document.createElement("button");
+                prevSearchesEl.appendChild(cityHistBtnEl);
+                cityHistBtnEl.innerHTML = parsedCities[i];
+                cityHistBtnEl.classList.add("btn", "btn-primary", "btn-block");
+            }
     }
 
     // created a url variable that concatenates query parameter to request city input and parameter for specific api key 
@@ -149,6 +141,7 @@ function getWeatherForecast(lat, lon) {
         })
         .then(function (data) {
             console.log(data);
+            fiveDaysContainer.innerHTML = "";
             // appends the 5-Day Forecast title to the webpage
             var forecastTitleEl = document.createElement("h3");
             fiveDaysContainer.appendChild(forecastTitleEl);
@@ -156,6 +149,8 @@ function getWeatherForecast(lat, lon) {
             // for of loop will navigate to the array within list that holds the data needed for webpage; console logs selected data for each array
             for (var i = 0; i < 40; i += 8) {
                 var fiveDates = data.list[i].dt_txt;
+                // TODO: finish data setup for 5 day forecast cards
+
                 // need var for weather icons
                 // console.log(data.list[i].main.temp);
                 // console.log(data.list[i].main.humidity);
@@ -163,7 +158,7 @@ function getWeatherForecast(lat, lon) {
 
                 // creates cards to hold forecast info
                 var dailyForecastCards = document.createElement("div");
-                forecastDaysEl.appendChild(dailyForecastCards);
+                fiveDaysContainer.appendChild(dailyForecastCards);
                 dailyForecastCards.classList.add("card", "col", "text-center");
 
                 var editedDates = fiveDates.substring(5, 10);
