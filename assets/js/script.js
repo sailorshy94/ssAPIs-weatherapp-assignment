@@ -34,13 +34,13 @@ function getGeoCode(pastCity) {
     }
 
     function genCityHistBtns() {
-            // for loop iterates through the array of cities and creates a button for each and gives it button class
-            for (i = 0; i < parsedCities.length; i++) {
-                var cityHistBtnEl = document.createElement("button");
-                prevSearchesEl.appendChild(cityHistBtnEl);
-                cityHistBtnEl.innerHTML = parsedCities[i];
-                cityHistBtnEl.classList.add("btn", "btn-primary", "btn-block");
-            }
+        // for loop iterates through the array of cities and creates a button for each and gives it button class
+        for (i = 0; i < parsedCities.length; i++) {
+            var cityHistBtnEl = document.createElement("button");
+            prevSearchesEl.appendChild(cityHistBtnEl);
+            cityHistBtnEl.innerHTML = parsedCities[i];
+            cityHistBtnEl.classList.add("btn", "btn-primary", "btn-block");
+        }
     }
 
     // created a url variable that concatenates query parameter to request city input and parameter for specific api key 
@@ -83,17 +83,6 @@ function getCurrentWeatherForecast(lat, lon) {
             return response.json();
         })
         .then(function (data) {
-            console.log(data);
-            var loc = data.name;
-            var date = dayjs().format("MM-DD-YYYY");
-            var icon = data.weather[0].icon;
-            // url created will grab the weather icon for the day
-            var iconUrl = "https://openweathermap.org/img/wn/" + icon + "@2x.png";
-            // unicode for degrees symbol \u00B0
-            var temp = data.main.temp + "\u00B0F";
-            var wind = data.wind.speed + " MPH";
-            var hum = data.main.humidity + " %";
-
             // card appended to webpage w/ content inside
             var weatherCardBodyEl = document.createElement("div");
             currentWeatherCard.appendChild(weatherCardBodyEl);
@@ -102,31 +91,41 @@ function getCurrentWeatherForecast(lat, lon) {
             var cardTitle = document.createElement("h5");
             weatherCardBodyEl.appendChild(cardTitle);
             cardTitle.classList.add("card-title");
-            // used Day.js to properly display date without extra text and in correct format
-            var currentDate = date;
-            // takes location name and adds space between it and the date
-            cardTitle.innerHTML = loc.toString() + " " + currentDate;
 
+            // used Day.js to properly display date without extra text and in correct format
+            var date = dayjs().format("MM-DD-YYYY");
+            var currentDate = date;
+            var loc = data.name;
+            // takes location name and adds space between it and the date
+            cardTitle.textContent = loc + " " + currentDate;
+
+            var icon = data.weather[0].icon;
+            // url created will grab the weather icon for the day
+            var iconUrl = "https://openweathermap.org/img/wn/" + icon + "@2x.png";
             var currentIcon = document.createElement("img");
             weatherCardBodyEl.appendChild(currentIcon);
             currentIcon.classList.add("card-img");
             currentIcon.setAttribute("src", iconUrl);
-            document.querySelector(".card-img").style.width = "5%";
+            document.querySelector(".card-img").style.width = "18%";
 
+            // unicode for degrees symbol \u00B0
+            var temp = data.main.temp + "\u00B0F";
             var currentTemp = document.createElement("p");
             weatherCardBodyEl.appendChild(currentTemp);
             currentTemp.classList.add("card-text");
-            currentTemp.innerHTML = "Temp: " + temp.toString();
+            currentTemp.textContent = "Temp: " + temp;
 
+            var wind = data.wind.speed + " MPH";
             var currentWind = document.createElement("p");
             weatherCardBodyEl.appendChild(currentWind);
             currentWind.classList.add("card-text");
-            currentWind.innerHTML = "Wind: " + wind.toString();
+            currentWind.textContent = "Wind: " + wind;
 
+            var hum = data.main.humidity + " %";
             var currentHum = document.createElement("p");
             weatherCardBodyEl.appendChild(currentHum);
             currentHum.classList.add("card-text");
-            currentHum.innerHTML = "Humidity: " + hum.toString();
+            currentHum.textContent = "Humidity: " + hum;
         }
         )
 };
@@ -141,59 +140,45 @@ function getWeatherForecast(lat, lon) {
         })
         .then(function (data) {
             console.log(data);
-            fiveDaysContainer.innerHTML = "";
             // appends the 5-Day Forecast title to the webpage
             var forecastTitleEl = document.createElement("h3");
             fiveDaysContainer.appendChild(forecastTitleEl);
             forecastTitleEl.innerHTML = "5-Day Forecast";
             // for of loop will navigate to the array within list that holds the data needed for webpage; console logs selected data for each array
             for (var i = 0; i < 40; i += 8) {
-                var fiveDates = data.list[i].dt_txt;
-                // TODO: finish data setup for 5 day forecast cards
-
-                // need var for weather icons
-                // console.log(data.list[i].main.temp);
-                // console.log(data.list[i].main.humidity);
-                // console.log(data.list[i].wind.speed);
-
                 // creates cards to hold forecast info
                 var dailyForecastCards = document.createElement("div");
                 fiveDaysContainer.appendChild(dailyForecastCards);
                 dailyForecastCards.classList.add("card", "col", "text-center");
 
+                var fiveDates = data.list[i].dt_txt;
                 var editedDates = fiveDates.substring(5, 10);
                 datesEl = document.createElement("p");
                 dailyForecastCards.appendChild(datesEl);
                 datesEl.innerHTML = editedDates.toString();
 
-                // var icon = data.list[0].weather[0].icon;
-                // // URL is https://openweathermap.org/img/wn/10d@2x.png
-                // // url created will grab the weather icon for the day
-                // var iconUrl = "https://openweathermap.org/img/wn/" + icon + "@2x.png";
-                // var temp = data.list[0].main.temp;
-                // var humidity = data.list[0].main.humidity;
-                // var wind = data.list[0].wind.speed;
+                var fiveIcons = data.list[0].weather[0].icon;
+                var iconsUrl = "https://openweathermap.org/img/wn/" + fiveIcons + "@2x.png";
+                var iconsEl = document.createElement("img");
+                dailyForecastCards.appendChild(iconsEl);
+                iconsEl.setAttribute("src", iconsUrl);
 
-                // var weatherCardBodyEl = document.createElement("div");
-                // currentWeatherCard.appendChild(weatherCardBodyEl);
-                // weatherCardBodyEl.classList.add("card-body");
+                var fiveTemps = data.list[i].main.temp + "\u00B0F";
+                var tempsEl = document.createElement("p");
+                dailyForecastCards.appendChild(tempsEl);
+                tempsEl.textContent = fiveTemps;
 
-                // var cardTitle = document.createElement("h5");
-                // weatherCardBodyEl.appendChild(cardTitle);
-                // cardTitle.classList.add("card-title");
-                // // used Day.js to properly display date without extra text and in correct format
-                // var currentDate = dayjs(date).format("MM/DD/YY");
-                // // takes location name and adds space between it and the date
-                // cardTitle.innerHTML = loc.toString() + " " + currentDate;
+                var fiveHums = data.list[i].main.humidity + " %";
+                var humsEl = document.createElement("p");
+                dailyForecastCards.appendChild(humsEl);
+                humsEl.textContent = fiveHums;
 
-                // var currentIcon = document.createElement("img");
-                // weatherCardBodyEl.appendChild(currentIcon);
-                // currentIcon.classList.add("card-img");
-                // currentIcon.setAttribute("src", iconUrl);
-                // document.querySelector(".card-img").style.width = "5%";
+                var fiveWinds = data.list[i].wind.speed + " MPH";
+                var windsEl = document.createElement("p");
+                dailyForecastCards.appendChild(windsEl);
+                windsEl.textContent = fiveWinds;
             }
         })
-
 };
 
 searchButton.addEventListener("click", getGeoCode);
