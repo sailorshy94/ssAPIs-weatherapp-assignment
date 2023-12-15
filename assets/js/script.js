@@ -44,7 +44,7 @@ function getGeoCode(pastCity) {
     }
 
     // created a url variable that concatenates query parameter to request city input and parameter for specific api key 
-    var geoCodeUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=" + apiKey;
+    var geoCodeUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=" + apiKey;
 
     fetch(geoCodeUrl)
         .then(function (response) {
@@ -76,7 +76,7 @@ prevSearchesEl.addEventListener("click", function (event) {
 function getCurrentWeatherForecast(lat, lon) {
     // requests the forecast for city
     // https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
-    var forecastUrl = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=" + apiKey;
+    var forecastUrl = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=" + apiKey;
     // grabs forecast data from request
     fetch(forecastUrl)
         .then(function (response) {
@@ -132,7 +132,7 @@ function getCurrentWeatherForecast(lat, lon) {
 
 function getWeatherForecast(lat, lon) {
     // requests the 5-day forecast for city
-    var forecastDaysUrl = "http://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=" + apiKey;
+    var forecastDaysUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=" + apiKey;
     // grabs forecast data from request
     fetch(forecastDaysUrl)
         .then(function (response) {
